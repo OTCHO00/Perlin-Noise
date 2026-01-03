@@ -21,7 +21,7 @@ class TerrainGenerator {
 
         void draw(RenderWindow& window);
 
-        void createImage(int width, int height);
+        void createImage(int width, int height, int octaves, float frequency);
 
         float getFractalNoise(float x, float y, int octaves, float persistence, float lacunarity);
 

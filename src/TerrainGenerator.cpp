@@ -1,6 +1,7 @@
 #include "../includes/TerrainGenerator.h"
 
-#define SCALE 0.005f
+#define LACUNARITY 2.0
+#define PERSISTENCE 0.3
 
 TerrainGenerator::TerrainGenerator() : sprite(texture) {}
 
@@ -24,14 +25,14 @@ float TerrainGenerator::getFractalNoise(float x, float y, int octaves, float per
 
 }
 
-void TerrainGenerator::createImage(int width, int height) {
+void TerrainGenerator::createImage(int width, int height, int octaves, float frequency) {
 
     Image image({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}, sf::Color::Black);
 
     for (int i = 0; i < width; i ++) {
         for (int j = 0; j < height; j ++) {
 
-            float val = getFractalNoise(i * SCALE, j * SCALE, 6, 0.3f, 2.0f);
+            float val = getFractalNoise(i * frequency, j * frequency, octaves, PERSISTENCE, LACUNARITY);
             image.setPixel({static_cast<unsigned int>(i), static_cast<unsigned int>(j)}, perlinNoise.getColor(val));
 
         }
