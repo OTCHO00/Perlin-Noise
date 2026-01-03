@@ -3,7 +3,7 @@
 #define LACUNARITY 2.0
 #define PERSISTENCE 0.3
 
-TerrainGenerator::TerrainGenerator() : sprite(texture) {}
+TerrainGenerator::TerrainGenerator() : sprite(texture){}
 
 float TerrainGenerator::getFractalNoise(float x, float y, int octaves, float persistence, float lacunarity) {
 
@@ -22,6 +22,12 @@ float TerrainGenerator::getFractalNoise(float x, float y, int octaves, float per
     }
 
     return total_noise / max_value;
+
+}
+
+void TerrainGenerator::setSeed(unsigned int seed) {
+
+    perlinNoise.setSeed(seed);
 
 }
 

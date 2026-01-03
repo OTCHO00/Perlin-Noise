@@ -15,6 +15,7 @@ using namespace sf;
 
 int main() {
 
+    int seed = static_cast<unsigned int>(time(nullptr));
     RenderWindow Window(VideoMode({WIDTH, HEIGHT}), "Perlin Noise");
     TerrainGenerator t;
 
@@ -44,11 +45,13 @@ int main() {
         ImGui::SFML::Update(Window, deltaClock.restart());
 
         ImGui::Begin("Perlin Noise Settings");
+        ImGui::SliderInt("Seed", &seed, 0, 200);
         ImGui::SliderInt("Octaves", &octaves, 0, 10);
         ImGui::SliderFloat("Frequency", &frequency, 0.001f, 0.05f);
 
         if (ImGui::Button("Generate")) {
 
+            t.setSeed(static_cast<unsigned int>(seed));
             t.createImage(WIDTH, HEIGHT, octaves, frequency);
 
         }

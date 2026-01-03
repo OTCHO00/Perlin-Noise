@@ -23,21 +23,27 @@ class PerlinNoise {
         float dot0, dot1, dot2, dot3;
 
         vector<int> Perlin;
-        vector<Vec2> gradients;         
+        vector<Vec2> gradients;      
+        
+        mt19937 generator;
 
     public:
 
-        PerlinNoise();
+        PerlinNoise(unsigned int seed = std::random_device{}());
+
+        float fade(float t);
 
         int hash(int x, int y);
 
-        float fade(float t);
+        void generatePermutation();
 
         Color getColor(float noise);
 
         float noise(float x, float y);
 
-         Vec2 distance(Vec2 point, Vec2 coin);
+        void setSeed(unsigned int seed);
+
+        Vec2 distance(Vec2 point, Vec2 coin);
 
         float lerp(float a, float b, float t);
 

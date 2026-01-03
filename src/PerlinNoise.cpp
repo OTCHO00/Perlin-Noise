@@ -1,10 +1,13 @@
 #include "../includes/PerlinNoise.h"
 
-PerlinNoise::PerlinNoise() {
+PerlinNoise::PerlinNoise(unsigned int seed) : generator(seed) {
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<double> dist(-1.0, 1.0);
+    gradients = {{1, 1}, {-1, 1}, {1, -1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
+    generatePermutation();
+
+}
+
+void PerlinNoise::generatePermutation() {
 
     for (int i = 0; i <= 255; i ++) {
 
@@ -14,11 +17,17 @@ PerlinNoise::PerlinNoise() {
 
     int size = Perlin.size();
 
-    shuffle(Perlin.begin(), Perlin.end(), gen);
+    shuffle(Perlin.begin(), Perlin.end(), generator);
 
     Perlin.insert(Perlin.end(), Perlin.begin(), Perlin.begin() + size);
 
-    gradients = {{1, 1}, {-1, 1}, {1, -1}, {-1, -1}, {1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
+}
+
+
+void PerlinNoise::setSeed(unsigned int seed) {
+
+    generator.seed(seed);
+    generatePermutation();
 
 }
 

@@ -19,6 +19,8 @@ class TerrainGenerator {
 
         TerrainGenerator();
 
+        void setSeed(unsigned int seed);
+
         void draw(RenderWindow& window);
 
         void createImage(int width, int height, int octaves, float frequency);
